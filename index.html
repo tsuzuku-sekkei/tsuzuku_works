@@ -510,12 +510,16 @@ function openModal(id){
 
   // 4枠グリッド（実写があれば使用、足りない分はSVG）
   const gallery=document.getElementById('modalGallery');
+  const isPortrait=(id==='w13');
+  const itemStyle=isPortrait?' style="aspect-ratio:2/3"':'';
+  if(isPortrait) gallery.style.gridTemplateRows='auto';
+  else gallery.style.gridTemplateRows='';
   const items=[];
   for(let i=0;i<4;i++){
     if(w.images&&w.images[i]&&w.images[i]!==''){
-      items.push(`<div class="modal-gallery-item"><img src="${w.images[i]}" alt=""></div>`);
+      items.push(`<div class="modal-gallery-item"${itemStyle}><img src="${w.images[i]}" alt=""></div>`);
     } else {
-      items.push(`<div class="modal-gallery-item">${svgHTML}</div>`);
+      items.push(`<div class="modal-gallery-item"${itemStyle}>${svgHTML}</div>`);
     }
   }
   gallery.innerHTML=items.join('');

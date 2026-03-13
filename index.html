@@ -342,7 +342,7 @@
 
   <div class="works-grid" id="worksGrid">
 
-    <div class="work-card featured reveal" data-cat="新築" onclick="openModal('w1')">
+    <div class="work-card featured reveal" style="aspect-ratio:16/9" data-cat="新築" onclick="openModal('w1')">
       <div class="work-img"><svg class="house-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8dce8"/><stop offset="100%" stop-color="#e8d9c4"/></linearGradient><linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5f2ee"/><stop offset="100%" stop-color="#e8e0d4"/></linearGradient></defs><rect width="800" height="500" fill="url(#g1a)"/><polygon points="0,280 180,120 360,280" fill="#b8c8d4" opacity="0.6"/><polygon points="200,280 400,100 600,280" fill="#a8b8c4" opacity="0.5"/><polygon points="400,280 620,140 800,280" fill="#b0c0cc" opacity="0.6"/><polygon points="180,120 155,175 205,175" fill="white" opacity="0.9"/><polygon points="400,100 370,170 430,170" fill="white" opacity="0.9"/><polygon points="620,140 595,195 645,195" fill="white" opacity="0.9"/><rect x="0" y="280" width="800" height="220" fill="url(#g1b)"/><rect x="180" y="210" width="300" height="180" fill="#f5f0e8"/><polygon points="155,215 495,215 480,155 340,125 200,155" fill="#8b6642"/><rect x="210" y="245" width="70" height="60" rx="2" fill="#c8d8e4" opacity="0.8"/><rect x="380" y="245" width="70" height="60" rx="2" fill="#c8d8e4" opacity="0.8"/><rect x="295" y="310" width="60" height="80" rx="2" fill="#8b6642" opacity="0.7"/></svg></div>
       <div class="work-tag">新築</div>
       <div class="work-overlay"><div class="work-info"><h3>マチョフ邸</h3><p>注文住宅</p></div><div class="work-arrow">→</div></div>
@@ -485,17 +485,17 @@
 const works={
   w1:{tag:'新築',title:'マチョフ邸',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'machof-top.jpg',images:['machof-1.jpg','machof-2.jpg','machof-3.jpg','machof-4.jpg']},
   w2:{tag:'新築',title:'小樽の家',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計'}],desc:'',top:'otaru-top.jpg',images:['otaru-1.jpg','otaru-2.jpg','otaru-3.jpg','otaru-4.jpg']},
-  w3:{tag:'新築',title:'千歳の別荘',subtitle:'新築マンション',specs:[{label:'種別',val:'新築'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'内装設計・施工'}],desc:'',top:'',images:[]},
-  w4:{tag:'リノベーション',title:'余白の家',subtitle:'MSリノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w5:{tag:'リノベーション',title:'想い紡ぐ家',subtitle:'戸建リノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w6:{tag:'リノベーション',title:'陽だまりの家',subtitle:'MSリノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w7:{tag:'新築',title:'ミニマルな家',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w8:{tag:'店舗',title:"HAV cafe'",subtitle:'テナント改修',specs:[{label:'種別',val:'店舗設計'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w9:{tag:'サウナ',title:'プライベートサウナ',subtitle:'コンテナハウス',specs:[{label:'種別',val:'サウナ設計'},{label:'構造',val:'コンテナ'},{label:'業務範囲',val:'設計'}],desc:'',top:'',images:[]},
-  w10:{tag:'サウナ',title:'海辺のサウナ',subtitle:'コンテナハウス',specs:[{label:'種別',val:'サウナ設計'},{label:'構造',val:'コンテナ'},{label:'業務範囲',val:'設計'}],desc:'',top:'',images:[]},
-  w11:{tag:'オフィス',title:'鉄工所のオフィス',subtitle:'テナント改修',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'鉄骨'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w12:{tag:'オフィス',title:'白いオフィスと倉庫',subtitle:'コンテナハウス',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'木造・コンテナ'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
-  w13:{tag:'店舗',title:'ジェラテリア La Giostra',subtitle:'テナント改修',specs:[{label:'種別',val:'造作建具交換'},{label:'構造',val:''},{label:'業務範囲',val:'建具設計・施工'}],desc:'',top:'',images:[]},
+  w3:{tag:'新築',title:'千歳の別荘',subtitle:'新築マンション',specs:[{label:'種別',val:'新築'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'内装設計・施工'}],desc:'',top:'chitose-top.jpg',images:['chitose-1.jpg','chitose-2.jpg','chitose-3.jpg','chitose-4.jpg']},
+  w4:{tag:'リノベーション',title:'余白の家',subtitle:'MSリノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'yohaku-top.jpg',images:['yohaku-1.jpg','yohaku-2.jpg','yohaku-3.jpg','yohaku-4.jpg']},
+  w5:{tag:'リノベーション',title:'想い紡ぐ家',subtitle:'戸建リノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'omoi-top.jpg',images:['omoi-1.jpg','omoi-2.jpg','omoi-3.jpg','omoi-4.jpg']},
+  w6:{tag:'リノベーション',title:'陽だまりの家',subtitle:'MSリノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'hidamari-top.jpg',images:['hidamari-1.jpg','hidamari-2.jpg','hidamari-3.jpg','hidamari-4.jpg']},
+  w7:{tag:'新築',title:'ミニマルな家',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'minimal-top.jpg',images:['minimal-1.jpg','minimal-2.jpg','minimal-3.jpg','minimal-4.jpg']},
+  w8:{tag:'店舗',title:"HAV cafe'",subtitle:'テナント改修',specs:[{label:'種別',val:'店舗設計'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'hav-top.jpg',images:['hav-1.jpg','hav-2.jpg','hav-3.jpg','hav-4.jpg']},
+  w9:{tag:'サウナ',title:'プライベートサウナ',subtitle:'コンテナハウス',specs:[{label:'種別',val:'サウナ設計'},{label:'構造',val:'コンテナ'},{label:'業務範囲',val:'設計'}],desc:'',top:'psauna-top.jpg',images:['psauna-1.jpg','psauna-2.jpg','psauna-3.jpg','psauna-4.jpg']},
+  w10:{tag:'サウナ',title:'海辺のサウナ',subtitle:'コンテナハウス',specs:[{label:'種別',val:'サウナ設計'},{label:'構造',val:'コンテナ'},{label:'業務範囲',val:'設計'}],desc:'',top:'umi-top.jpg',images:['umi-1.jpg','umi-2.jpg','umi-3.jpg','umi-4.jpg']},
+  w11:{tag:'オフィス',title:'鉄工所のオフィス',subtitle:'テナント改修',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'鉄骨'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'tekko-top.jpg',images:['tekko-1.jpg','','','']},
+  w12:{tag:'オフィス',title:'白いオフィスと倉庫',subtitle:'コンテナハウス',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'木造・コンテナ'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'shiro-top.jpg',images:['shiro-1.jpg','shiro-2.jpg','shiro-3.jpg','shiro-4.jpg']},
+  w13:{tag:'店舗',title:'ジェラテリア La Giostra',subtitle:'テナント改修',specs:[{label:'種別',val:'造作建具交換'},{label:'構造',val:''},{label:'業務範囲',val:'建具設計・施工'}],desc:'',top:'giostra-top.jpg',images:['giostra-1.jpg','giostra-2.jpg','','']},
 };
 
 const cardOrder=['w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12','w13'];
@@ -512,7 +512,7 @@ function openModal(id){
   const gallery=document.getElementById('modalGallery');
   const items=[];
   for(let i=0;i<4;i++){
-    if(w.images&&w.images[i]){
+    if(w.images&&w.images[i]&&w.images[i]!==''){
       items.push(`<div class="modal-gallery-item"><img src="${w.images[i]}" alt=""></div>`);
     } else {
       items.push(`<div class="modal-gallery-item">${svgHTML}</div>`);

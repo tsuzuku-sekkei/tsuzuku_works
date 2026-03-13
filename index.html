@@ -2,11 +2,22 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>つづく設計舎 | 施工事例</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
 <style>
+  /* スマホ専用：PC・タブレットでは閲覧制限 */
+  @media (min-width: 600px) {
+    body::before {
+      content: 'このページはスマートフォンでご覧ください。';
+      display: flex; align-items: center; justify-content: center;
+      position: fixed; inset: 0; background: #f7f3ee;
+      font-family: 'Noto Sans JP', sans-serif; font-size: 15px;
+      color: #8b6642; letter-spacing: 0.1em; z-index: 9999;
+      text-align: center; padding: 40px;
+    }
+  }
   :root {
     --cream: #f7f3ee;
     --warm-white: #faf8f5;
@@ -158,9 +169,9 @@
   .works-grid { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
   .work-card {
     position:relative; overflow:hidden; cursor:pointer;
-    background:var(--light-gray); aspect-ratio:3/4;
+    background:var(--light-gray); aspect-ratio:1/1;
   }
-  .work-card.featured { grid-column:1/-1; aspect-ratio:4/3; }
+  .work-card.featured { grid-column:1/-1; aspect-ratio:16/7; }
   .work-img { width:100%; height:100%; transition:transform 0.5s ease; }
   .work-card:active .work-img { transform:scale(1.03); }
   .house-svg { width:100%; height:100%; object-fit:cover; display:block; }
@@ -256,11 +267,21 @@
   }
   .modal-overlay.active .modal { transform:translateY(0); }
   .modal-handle { width:40px; height:4px; background:rgba(0,0,0,0.15); border-radius:2px; margin:12px auto 0; }
-  .modal-img { width:100%; height:210px; overflow:hidden; }
+
+  /* 画像グリッド */
+  .modal-gallery {
+    width:100%; background:#e8e0d4;
+    display:grid; grid-template-columns:1fr 1fr; gap:8px;
+    padding:8px;
+  }
+  .modal-gallery-item { width:100%; aspect-ratio:4/3; overflow:hidden; }
+  .modal-gallery-item svg { width:100%; height:100%; display:block; }
+  .modal-gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
+
   .modal-body { padding:22px 20px 44px; }
-  .modal-tag { font-size:10px; letter-spacing:0.2em; color:var(--wood); text-transform:uppercase; margin-bottom:7px; }
-  .modal-title { font-family:'Noto Serif JP',serif; font-weight:300; font-size:23px; margin-bottom:6px; }
-  .modal-loc { font-size:11px; color:var(--mid-gray); letter-spacing:0.08em; margin-bottom:18px; }
+  .modal-tag { font-size:10px; letter-spacing:0.2em; color:var(--wood); text-transform:uppercase; margin-bottom:5px; }
+  .modal-title { font-family:'Noto Serif JP',serif; font-weight:300; font-size:23px; margin-bottom:4px; }
+  .modal-subtitle { font-size:12px; color:var(--mid-gray); letter-spacing:0.1em; margin-bottom:18px; }
   .modal-specs {
     display:grid; grid-template-columns:repeat(3,1fr); gap:10px;
     margin-bottom:18px; padding:14px; background:var(--snow);
@@ -314,51 +335,89 @@
     <button class="filter-btn active" onclick="filterWorks('all',this)">すべて</button>
     <button class="filter-btn" onclick="filterWorks('新築',this)">新築</button>
     <button class="filter-btn" onclick="filterWorks('リノベーション',this)">リノベーション</button>
-    <button class="filter-btn" onclick="filterWorks('平屋',this)">平屋</button>
+    <button class="filter-btn" onclick="filterWorks('店舗',this)">店舗</button>
+    <button class="filter-btn" onclick="filterWorks('オフィス',this)">オフィス</button>
+    <button class="filter-btn" onclick="filterWorks('サウナ',this)">サウナ</button>
   </div>
 
   <div class="works-grid" id="worksGrid">
 
     <div class="work-card featured reveal" data-cat="新築" onclick="openModal('w1')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8dce8"/><stop offset="100%" stop-color="#e8d9c4"/></linearGradient><linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5f2ee"/><stop offset="100%" stop-color="#e8e0d4"/></linearGradient></defs><rect width="800" height="500" fill="url(#g1a)"/><polygon points="0,280 180,120 360,280" fill="#b8c8d4" opacity="0.6"/><polygon points="200,280 400,100 600,280" fill="#a8b8c4" opacity="0.5"/><polygon points="400,280 620,140 800,280" fill="#b0c0cc" opacity="0.6"/><polygon points="180,120 155,175 205,175" fill="white" opacity="0.9"/><polygon points="400,100 370,170 430,170" fill="white" opacity="0.9"/><polygon points="620,140 595,195 645,195" fill="white" opacity="0.9"/><rect x="0" y="280" width="800" height="220" fill="url(#g1b)"/><rect x="180" y="210" width="300" height="180" fill="#f5f0e8"/><polygon points="155,215 495,215 480,155 340,125 200,155" fill="#8b6642"/><polygon points="155,215 200,155 220,155 175,215" fill="white" opacity="0.9"/><polygon points="480,155 495,215 460,215 470,155" fill="white" opacity="0.9"/><ellipse cx="330" cy="153" rx="110" ry="12" fill="white" opacity="0.8"/><rect x="210" y="245" width="70" height="60" rx="2" fill="#c8d8e4" opacity="0.8"/><line x1="245" y1="245" x2="245" y2="305" stroke="#adc" stroke-width="1" opacity="0.5"/><line x1="210" y1="275" x2="280" y2="275" stroke="#adc" stroke-width="1" opacity="0.5"/><rect x="380" y="245" width="70" height="60" rx="2" fill="#c8d8e4" opacity="0.8"/><line x1="415" y1="245" x2="415" y2="305" stroke="#adc" stroke-width="1" opacity="0.5"/><line x1="380" y1="275" x2="450" y2="275" stroke="#adc" stroke-width="1" opacity="0.5"/><rect x="295" y="310" width="60" height="80" rx="2" fill="#8b6642" opacity="0.7"/><circle cx="345" cy="353" r="4" fill="#c8a870"/><rect x="100" y="270" width="10" height="80" fill="#6e5040"/><polygon points="105,180 70,270 140,270" fill="#4a5e48"/><polygon points="105,210 75,280 135,280" fill="#5a7058"/><rect x="530" y="265" width="8" height="75" fill="#6e5040"/><polygon points="534,175 502,265 566,265" fill="#4a5e48"/><polygon points="534,205 505,275 563,275" fill="#5a7058"/><rect x="416" y="150" width="12" height="30" fill="#8b6642"/><ellipse cx="420" cy="140" rx="6" ry="10" fill="#ccc" opacity="0.4"/></svg></div>
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g1a" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8dce8"/><stop offset="100%" stop-color="#e8d9c4"/></linearGradient><linearGradient id="g1b" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f5f2ee"/><stop offset="100%" stop-color="#e8e0d4"/></linearGradient></defs><rect width="800" height="500" fill="url(#g1a)"/><polygon points="0,280 180,120 360,280" fill="#b8c8d4" opacity="0.6"/><polygon points="200,280 400,100 600,280" fill="#a8b8c4" opacity="0.5"/><polygon points="400,280 620,140 800,280" fill="#b0c0cc" opacity="0.6"/><polygon points="180,120 155,175 205,175" fill="white" opacity="0.9"/><polygon points="400,100 370,170 430,170" fill="white" opacity="0.9"/><polygon points="620,140 595,195 645,195" fill="white" opacity="0.9"/><rect x="0" y="280" width="800" height="220" fill="url(#g1b)"/><rect x="180" y="210" width="300" height="180" fill="#f5f0e8"/><polygon points="155,215 495,215 480,155 340,125 200,155" fill="#8b6642"/><rect x="210" y="245" width="70" height="60" rx="2" fill="#c8d8e4" opacity="0.8"/><rect x="380" y="245" width="70" height="60" rx="2" fill="#c8d8e4" opacity="0.8"/><rect x="295" y="310" width="60" height="80" rx="2" fill="#8b6642" opacity="0.7"/></svg></div>
       <div class="work-tag">新築</div>
-      <div class="work-overlay"><div class="work-info"><h3>余市の家</h3><p>北海道余市郡　2023年竣工</p></div><div class="work-arrow">→</div></div>
+      <div class="work-overlay"><div class="work-info"><h3>マチョフ邸</h3><p>注文住宅</p></div><div class="work-arrow">→</div></div>
     </div>
 
-    <div class="work-card reveal" data-cat="平屋" onclick="openModal('w2')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8f0f4"/><stop offset="100%" stop-color="#d4e4ec"/></linearGradient></defs><rect width="400" height="300" fill="url(#g2)"/><rect x="0" y="185" width="400" height="115" fill="#e8e0d0"/><rect x="60" y="130" width="280" height="130" fill="#f8f4ee"/><rect x="60" y="120" width="180" height="20" fill="#b5895a"/><rect x="220" y="110" width="120" height="30" fill="#8b6642"/><rect x="80" y="150" width="100" height="80" rx="1" fill="#b8ccd8" opacity="0.85"/><line x1="130" y1="150" x2="130" y2="230" stroke="#9ab" stroke-width="1" opacity="0.5"/><rect x="240" y="145" width="80" height="50" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="175" y="195" width="45" height="65" fill="#8b6642" opacity="0.6"/><circle cx="212" cy="230" r="3" fill="#c8a870"/><ellipse cx="56" cy="218" rx="14" ry="14" fill="#4a6048"/><ellipse cx="332" cy="223" rx="12" ry="12" fill="#4a6048"/></svg></div>
-      <div class="work-tag">平屋</div>
-      <div class="work-overlay"><div class="work-info"><h3>函館の平屋</h3><p>北海道函館市　2023年</p></div><div class="work-arrow">→</div></div>
+    <div class="work-card reveal" data-cat="新築" onclick="openModal('w2')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8f0f4"/><stop offset="100%" stop-color="#d4e4ec"/></linearGradient></defs><rect width="400" height="300" fill="url(#g2)"/><rect x="0" y="185" width="400" height="115" fill="#e8e0d0"/><rect x="60" y="130" width="280" height="130" fill="#f8f4ee"/><rect x="60" y="120" width="180" height="20" fill="#b5895a"/><rect x="220" y="110" width="120" height="30" fill="#8b6642"/><rect x="80" y="150" width="100" height="80" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="240" y="145" width="80" height="50" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="175" y="195" width="45" height="65" fill="#8b6642" opacity="0.6"/></svg></div>
+      <div class="work-tag">新築</div>
+      <div class="work-overlay"><div class="work-info"><h3>小樽の家</h3><p>注文住宅</p></div><div class="work-arrow">→</div></div>
     </div>
 
     <div class="work-card reveal" data-cat="新築" onclick="openModal('w3')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f4e8d8"/><stop offset="100%" stop-color="#e8d4b8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g3)"/><rect x="0" y="200" width="400" height="100" fill="#ede0cc"/><rect x="80" y="140" width="240" height="140" fill="#d4b880" opacity="0.45"/><rect x="80" y="150" width="240" height="8" fill="#b89050" opacity="0.3"/><rect x="80" y="168" width="240" height="8" fill="#b89050" opacity="0.3"/><rect x="80" y="186" width="240" height="8" fill="#b89050" opacity="0.3"/><rect x="80" y="204" width="240" height="8" fill="#b89050" opacity="0.3"/><polygon points="55,145 200,60 345,145" fill="#6e4a30"/><polygon points="55,145 80,145 200,80 320,145 345,145 200,60" fill="#8b5e3c"/><rect x="110" y="165" width="60" height="55" rx="30" fill="#b8ccd8" opacity="0.8"/><rect x="230" y="165" width="60" height="55" rx="30" fill="#b8ccd8" opacity="0.8"/><rect x="170" y="215" width="60" height="65" rx="30" fill="#6e4a30" opacity="0.6"/><ellipse cx="35" cy="243" rx="18" ry="14" fill="#3a5030"/><ellipse cx="365" cy="243" rx="18" ry="14" fill="#3a5030"/></svg></div>
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f4e8d8"/><stop offset="100%" stop-color="#e8d4b8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g3)"/><rect x="0" y="200" width="400" height="100" fill="#ede0cc"/><polygon points="55,145 200,60 345,145" fill="#6e4a30"/><polygon points="55,145 80,145 200,80 320,145 345,145 200,60" fill="#8b5e3c"/><rect x="80" y="150" width="240" height="120" fill="#f5f0e8"/><rect x="110" y="165" width="60" height="55" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="230" y="165" width="60" height="55" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="170" y="215" width="60" height="55" rx="1" fill="#6e4a30" opacity="0.6"/></svg></div>
       <div class="work-tag">新築</div>
-      <div class="work-overlay"><div class="work-info"><h3>ニセコの山の家</h3><p>北海道虻田郡　2022年</p></div><div class="work-arrow">→</div></div>
+      <div class="work-overlay"><div class="work-info"><h3>千歳の別荘</h3><p>新築マンション</p></div><div class="work-arrow">→</div></div>
     </div>
 
     <div class="work-card reveal" data-cat="リノベーション" onclick="openModal('w4')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#dce8f0"/><stop offset="100%" stop-color="#c8d8e4"/></linearGradient></defs><rect width="400" height="300" fill="url(#g4)"/><rect x="0" y="210" width="400" height="90" fill="#e0d8c8"/><rect x="70" y="120" width="260" height="165" fill="#f4f0ea"/><rect x="70" y="120" width="260" height="80" fill="#ece6dc"/><rect x="55" y="114" width="290" height="12" fill="#8b6642"/><rect x="55" y="190" width="120" height="8" fill="#b89060"/><rect x="55" y="190" width="3" height="30" fill="#b89060"/><rect x="172" y="190" width="3" height="30" fill="#b89060"/><rect x="85" y="130" width="80" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="185" y="130" width="125" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><line x1="247" y1="130" x2="247" y2="185" stroke="#9ab" stroke-width="1" opacity="0.5"/><rect x="75" y="208" width="70" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="205" y="215" width="40" height="60" fill="#6e4a30" opacity="0.6"/><rect x="265" y="208" width="55" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><ellipse cx="50" cy="230" rx="22" ry="18" fill="#4a6040"/><ellipse cx="355" cy="233" rx="20" ry="16" fill="#4a6040"/></svg></div>
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#dce8f0"/><stop offset="100%" stop-color="#c8d8e4"/></linearGradient></defs><rect width="400" height="300" fill="url(#g4)"/><rect x="0" y="210" width="400" height="90" fill="#e0d8c8"/><rect x="70" y="120" width="260" height="165" fill="#f4f0ea"/><rect x="55" y="114" width="290" height="12" fill="#8b6642"/><rect x="85" y="130" width="80" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="185" y="130" width="125" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="75" y="208" width="70" height="55" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="205" y="215" width="40" height="60" fill="#6e4a30" opacity="0.6"/></svg></div>
       <div class="work-tag">リノベーション</div>
-      <div class="work-overlay"><div class="work-info"><h3>札幌・円山の家</h3><p>北海道札幌市　2022年</p></div><div class="work-arrow">→</div></div>
+      <div class="work-overlay"><div class="work-info"><h3>余白の家</h3><p>MSリノベーション</p></div><div class="work-arrow">→</div></div>
     </div>
 
-    <div class="work-card reveal" data-cat="新築" onclick="openModal('w5')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e4d8c8"/><stop offset="100%" stop-color="#d4c4a8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g5)"/><rect x="0" y="220" width="400" height="80" fill="#e8dcc8"/><rect x="75" y="155" width="250" height="140" fill="#f8f4ee"/><polygon points="55,160 200,70 345,160" fill="#7a5a40"/><polygon points="55,160 75,160 200,85 325,160 345,160 200,70" fill="#8b6a4a"/><rect x="195" y="66" width="10" height="20" fill="#6a4a30"/><rect x="55" y="220" width="290" height="10" fill="#8b6a4a" opacity="0.7"/><rect x="85" y="230" width="6" height="40" fill="#8b6a4a" opacity="0.5"/><rect x="309" y="230" width="6" height="40" fill="#8b6a4a" opacity="0.5"/><rect x="95" y="175" width="65" height="55" rx="1" fill="#b8ccd8" opacity="0.8"/><line x1="127" y1="175" x2="127" y2="230" stroke="#9ab" stroke-width="1.5" opacity="0.6"/><line x1="95" y1="202" x2="160" y2="202" stroke="#9ab" stroke-width="1.5" opacity="0.6"/><rect x="240" y="175" width="65" height="55" rx="1" fill="#b8ccd8" opacity="0.8"/><line x1="272" y1="175" x2="272" y2="230" stroke="#9ab" stroke-width="1.5" opacity="0.6"/><line x1="240" y1="202" x2="305" y2="202" stroke="#9ab" stroke-width="1.5" opacity="0.6"/><rect x="173" y="220" width="54" height="75" rx="2" fill="#7a5a40" opacity="0.65"/><circle cx="220" cy="260" r="3.5" fill="#c8a870"/><ellipse cx="65" cy="243" rx="18" ry="14" fill="#4a6040"/><ellipse cx="335" cy="243" rx="18" ry="14" fill="#4a6040"/></svg></div>
-      <div class="work-tag">新築</div>
-      <div class="work-overlay"><div class="work-info"><h3>旭川・緑が丘の家</h3><p>北海道旭川市　2021年</p></div><div class="work-arrow">→</div></div>
+    <div class="work-card reveal" data-cat="リノベーション" onclick="openModal('w5')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e4d8c8"/><stop offset="100%" stop-color="#d4c4a8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g5)"/><rect x="0" y="220" width="400" height="80" fill="#e8dcc8"/><rect x="75" y="155" width="250" height="140" fill="#f8f4ee"/><polygon points="55,160 200,70 345,160" fill="#7a5a40"/><rect x="95" y="175" width="65" height="55" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="240" y="175" width="65" height="55" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="173" y="220" width="54" height="75" rx="2" fill="#7a5a40" opacity="0.65"/></svg></div>
+      <div class="work-tag">リノベーション</div>
+      <div class="work-overlay"><div class="work-info"><h3>想い紡ぐ家</h3><p>戸建リノベーション</p></div><div class="work-arrow">→</div></div>
     </div>
 
     <div class="work-card reveal" data-cat="リノベーション" onclick="openModal('w6')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e0ecd8"/><stop offset="100%" stop-color="#c8dcbc"/></linearGradient></defs><rect width="400" height="300" fill="url(#g6)"/><rect x="0" y="200" width="400" height="100" fill="#ddd4b8"/><rect x="40" y="135" width="320" height="140" fill="#f0ebe0"/><rect x="40" y="125" width="320" height="16" fill="#7a8a70"/><rect x="40" y="125" width="320" height="6" fill="#5a6a50"/><rect x="55" y="148" width="90" height="60" rx="1" fill="#b8ccd8" opacity="0.8"/><line x1="100" y1="148" x2="100" y2="208" stroke="#9ab" stroke-width="1" opacity="0.5"/><rect x="160" y="148" width="90" height="60" rx="1" fill="#b8ccd8" opacity="0.8"/><line x1="205" y1="148" x2="205" y2="208" stroke="#9ab" stroke-width="1" opacity="0.5"/><rect x="265" y="148" width="80" height="60" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="168" y="215" width="64" height="60" fill="#5a6a50" opacity="0.65"/><rect x="220" y="238" width="6" height="6" rx="3" fill="#c8d8a0"/><rect x="40" y="255" width="320" height="12" fill="#8a7a58" opacity="0.4"/><rect x="55" y="248" width="30" height="12" fill="#4a6040"/><rect x="100" y="245" width="24" height="15" fill="#5a7050"/><rect x="280" y="248" width="28" height="12" fill="#4a6040"/><rect x="320" y="245" width="22" height="15" fill="#5a7050"/></svg></div>
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g6" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e0ecd8"/><stop offset="100%" stop-color="#c8dcbc"/></linearGradient></defs><rect width="400" height="300" fill="url(#g6)"/><rect x="0" y="200" width="400" height="100" fill="#ddd4b8"/><rect x="40" y="135" width="320" height="140" fill="#f0ebe0"/><rect x="40" y="125" width="320" height="16" fill="#7a8a70"/><rect x="55" y="148" width="90" height="60" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="160" y="148" width="90" height="60" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="265" y="148" width="80" height="60" rx="1" fill="#b8ccd8" opacity="0.8"/><rect x="168" y="215" width="64" height="60" fill="#5a6a50" opacity="0.65"/></svg></div>
       <div class="work-tag">リノベーション</div>
-      <div class="work-overlay"><div class="work-info"><h3>帯広・緑町の家</h3><p>北海道帯広市　2021年</p></div><div class="work-arrow">→</div></div>
+      <div class="work-overlay"><div class="work-info"><h3>陽だまりの家</h3><p>MSリノベーション</p></div><div class="work-arrow">→</div></div>
     </div>
 
-    <div class="work-card featured reveal" data-cat="新築" onclick="openModal('w7')">
-      <div class="work-img"><svg class="house-svg" viewBox="0 0 800 480" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0e8d8"/><stop offset="100%" stop-color="#ddd0b8"/></linearGradient></defs><rect width="800" height="480" fill="url(#g7)"/><rect x="0" y="260" width="800" height="220" fill="#e8dcc8"/><rect x="80" y="160" width="640" height="210" fill="#f5f0e6"/><rect x="80" y="195" width="200" height="175" fill="#ece6d8"/><rect x="590" y="175" width="130" height="195" fill="#f0ebe2"/><rect x="65" y="152" width="670" height="14" fill="#8b6642"/><rect x="65" y="188" width="204" height="10" fill="#a07850"/><rect x="586" y="168" width="134" height="10" fill="#a07850"/><rect x="300" y="175" width="280" height="130" rx="1" fill="#c0d4e0" opacity="0.85"/><line x1="440" y1="175" x2="440" y2="305" stroke="#adc" stroke-width="2" opacity="0.4"/><line x1="370" y1="175" x2="370" y2="305" stroke="#adc" stroke-width="1" opacity="0.3"/><line x1="510" y1="175" x2="510" y2="305" stroke="#adc" stroke-width="1" opacity="0.3"/><rect x="100" y="215" width="75" height="60" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="190" y="215" width="75" height="60" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="600" y="190" width="60" height="50" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="672" y="190" width="60" height="50" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="220" y="295" width="55" height="75" fill="#6e5030" opacity="0.6"/><rect x="22" y="240" width="8" height="80" fill="#5a4030"/><ellipse cx="26" cy="235" rx="22" ry="22" fill="#3a5530"/><ellipse cx="20" cy="245" rx="16" ry="16" fill="#4a6540"/><rect x="768" y="238" width="8" height="82" fill="#5a4030"/><ellipse cx="772" cy="233" rx="20" ry="20" fill="#3a5530"/></svg></div>
+    <div class="work-card reveal" data-cat="新築" onclick="openModal('w7')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g7" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0e8d8"/><stop offset="100%" stop-color="#ddd0b8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g7)"/><rect x="0" y="200" width="400" height="100" fill="#e8dcc8"/><rect x="40" y="130" width="320" height="145" fill="#f5f0e6"/><rect x="30" y="122" width="340" height="14" fill="#8b6642"/><rect x="60" y="148" width="120" height="80" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="200" y="148" width="150" height="80" rx="1" fill="#b8ccd8" opacity="0.85"/><rect x="165" y="215" width="50" height="60" fill="#6e5030" opacity="0.6"/></svg></div>
       <div class="work-tag">新築</div>
-      <div class="work-overlay"><div class="work-info"><h3>富良野の広い家</h3><p>北海道富良野市　2020年竣工</p></div><div class="work-arrow">→</div></div>
+      <div class="work-overlay"><div class="work-info"><h3>ミニマルな家</h3><p>注文住宅</p></div><div class="work-arrow">→</div></div>
+    </div>
+
+    <div class="work-card reveal" data-cat="店舗" onclick="openModal('w8')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g8" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e0d4"/><stop offset="100%" stop-color="#d4c8b8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g8)"/><rect x="0" y="210" width="400" height="90" fill="#d8cfc0"/><rect x="50" y="100" width="300" height="180" fill="#f5f0ea"/><rect x="50" y="95" width="300" height="12" fill="#5a4a38"/><rect x="60" y="112" width="280" height="8" fill="#7a6a58" opacity="0.5"/><rect x="60" y="120" width="280" height="100" rx="2" fill="#c8d8e0" opacity="0.7"/><line x1="200" y1="120" x2="200" y2="220" stroke="#a0b0b8" stroke-width="1.5" opacity="0.5"/><rect x="155" y="230" width="90" height="55" fill="#5a4a38" opacity="0.65"/><rect x="80" y="140" width="40" height="30" rx="20" fill="#f0e8d8" opacity="0.9"/><rect x="280" y="140" width="40" height="30" rx="20" fill="#f0e8d8" opacity="0.9"/><circle cx="200" cy="88" r="5" fill="#c8a870"/></svg></div>
+      <div class="work-tag">店舗</div>
+      <div class="work-overlay"><div class="work-info"><h3>HAV cafe'</h3><p>テナント改修</p></div><div class="work-arrow">→</div></div>
+    </div>
+
+    <div class="work-card reveal" data-cat="サウナ" onclick="openModal('w9')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g9" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d4c4a8"/><stop offset="100%" stop-color="#c0aa88"/></linearGradient></defs><rect width="400" height="300" fill="url(#g9)"/><rect x="0" y="210" width="400" height="90" fill="#c8b898"/><rect x="80" y="120" width="240" height="165" fill="#e8d8b8"/><rect x="80" y="108" width="240" height="18" fill="#6e4a20"/><rect x="100" y="130" width="60" height="50" rx="2" fill="#b8a888" opacity="0.7"/><rect x="240" y="130" width="60" height="50" rx="2" fill="#b8a888" opacity="0.7"/><rect x="160" y="215" width="80" height="55" fill="#6e4a20" opacity="0.7"/><path d="M130,160 Q135,145 140,160 Q145,145 150,160" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/><path d="M250,160 Q255,145 260,160 Q265,145 270,160" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1.5"/></svg></div>
+      <div class="work-tag">サウナ</div>
+      <div class="work-overlay"><div class="work-info"><h3>プライベートサウナ</h3><p>コンテナハウス</p></div><div class="work-arrow">→</div></div>
+    </div>
+
+    <div class="work-card reveal" data-cat="サウナ" onclick="openModal('w10')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g10" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8dce8"/><stop offset="100%" stop-color="#a8c4d8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g10)"/><rect x="0" y="200" width="400" height="100" fill="#b8d0e0"/><rect x="60" y="130" width="280" height="145" fill="#e8d8c0"/><rect x="60" y="118" width="280" height="16" fill="#5a4a30"/><rect x="80" y="145" width="80" height="55" rx="1" fill="#b0a080" opacity="0.7"/><rect x="240" y="145" width="80" height="55" rx="1" fill="#b0a080" opacity="0.7"/><rect x="170" y="210" width="60" height="55" fill="#5a4a30" opacity="0.7"/><path d="M100,165 Q107,148 114,165 Q121,148 128,165" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="1.5"/><rect x="0" y="220" width="400" height="10" fill="#88aac0" opacity="0.5"/></svg></div>
+      <div class="work-tag">サウナ</div>
+      <div class="work-overlay"><div class="work-info"><h3>海辺のサウナ</h3><p>コンテナハウス</p></div><div class="work-arrow">→</div></div>
+    </div>
+
+    <div class="work-card reveal" data-cat="オフィス" onclick="openModal('w11')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g11" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#d8d4cc"/><stop offset="100%" stop-color="#c0bcb4"/></linearGradient></defs><rect width="400" height="300" fill="url(#g11)"/><rect x="0" y="210" width="400" height="90" fill="#c8c4bc"/><rect x="40" y="80" width="320" height="205" fill="#e8e4dc"/><rect x="40" y="80" width="320" height="8" fill="#4a4a4a"/><rect x="40" y="112" width="320" height="6" fill="#6a6a6a" opacity="0.4"/><rect x="40" y="144" width="320" height="6" fill="#6a6a6a" opacity="0.4"/><rect x="40" y="176" width="320" height="6" fill="#6a6a6a" opacity="0.4"/><rect x="55" y="90" width="55" height="120" rx="1" fill="#b8c8d0" opacity="0.7"/><rect x="120" y="90" width="55" height="120" rx="1" fill="#b8c8d0" opacity="0.7"/><rect x="225" y="90" width="55" height="120" rx="1" fill="#b8c8d0" opacity="0.7"/><rect x="290" y="90" width="55" height="120" rx="1" fill="#b8c8d0" opacity="0.7"/><rect x="165" y="215" width="70" height="60" fill="#4a4a4a" opacity="0.65"/></svg></div>
+      <div class="work-tag">オフィス</div>
+      <div class="work-overlay"><div class="work-info"><h3>鉄工所のオフィス</h3><p>テナント改修</p></div><div class="work-arrow">→</div></div>
+    </div>
+
+    <div class="work-card reveal" data-cat="オフィス" onclick="openModal('w12')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g12" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8d4d8"/><stop offset="100%" stop-color="#b0bcc0"/></linearGradient></defs><rect width="400" height="300" fill="url(#g12)"/><rect x="0" y="215" width="400" height="85" fill="#b8c4c8"/><rect x="60" y="130" width="100" height="155" rx="4" fill="#d0c8b8"/><rect x="175" y="115" width="165" height="170" rx="4" fill="#c8c0b0"/><rect x="60" y="130" width="100" height="10" fill="#5a5a5a"/><rect x="175" y="115" width="165" height="10" fill="#5a5a5a"/><rect x="75" y="150" width="70" height="45" rx="1" fill="#a0b8c0" opacity="0.7"/><rect x="75" y="205" width="70" height="45" rx="1" fill="#a0b8c0" opacity="0.7"/><rect x="190" y="135" width="65" height="55" rx="1" fill="#a0b8c0" opacity="0.7"/><rect x="270" y="135" width="55" height="55" rx="1" fill="#a0b8c0" opacity="0.7"/><rect x="190" y="205" width="135" height="55" rx="1" fill="#a0b8c0" opacity="0.7"/></svg></div>
+      <div class="work-tag">オフィス</div>
+      <div class="work-overlay"><div class="work-info"><h3>白いオフィスと倉庫</h3><p>コンテナハウス</p></div><div class="work-arrow">→</div></div>
+    </div>
+
+    <div class="work-card reveal" data-cat="店舗" onclick="openModal('w13')">
+      <div class="work-img"><svg class="house-svg" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="g13" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#f0e8e0"/><stop offset="100%" stop-color="#e0d4c8"/></linearGradient></defs><rect width="400" height="300" fill="url(#g13)"/><rect x="0" y="205" width="400" height="95" fill="#d8ccc0"/><rect x="50" y="105" width="300" height="170" fill="#f8f4f0"/><rect x="50" y="98" width="300" height="12" fill="#4a3828"/><rect x="65" y="118" width="270" height="95" rx="1" fill="#c0d4d8" opacity="0.75"/><line x1="200" y1="118" x2="200" y2="213" stroke="#a0b8bc" stroke-width="1.5" opacity="0.5"/><rect x="155" y="225" width="90" height="50" fill="#4a3828" opacity="0.65"/><rect x="80" y="130" width="50" height="35" rx="20" fill="#f0e8e0" opacity="0.9"/><rect x="270" y="130" width="50" height="35" rx="20" fill="#f0e8e0" opacity="0.9"/><path d="M160,95 Q170,78 180,95" fill="none" stroke="#c8a870" stroke-width="1.5"/><path d="M220,95 Q230,78 240,95" fill="none" stroke="#c8a870" stroke-width="1.5"/></svg></div>
+      <div class="work-tag">店舗</div>
+      <div class="work-overlay"><div class="work-info"><h3>ジェラテリア La Giostra</h3><p>テナント改修</p></div><div class="work-arrow">→</div></div>
     </div>
 
   </div>
@@ -411,11 +470,11 @@
   <div class="modal" id="modal">
     <div class="modal-handle"></div>
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-img" id="modalImg"></div>
+    <div class="modal-gallery" id="modalGallery"></div>
     <div class="modal-body">
       <p class="modal-tag" id="modalTag"></p>
       <h2 class="modal-title" id="modalTitle"></h2>
-      <p class="modal-loc" id="modalLoc"></p>
+      <p class="modal-subtitle" id="modalSubtitle"></p>
       <div class="modal-specs" id="modalSpecs"></div>
       <p class="modal-desc" id="modalDesc"></p>
     </div>
@@ -424,16 +483,22 @@
 
 <script>
 const works={
-  w1:{tag:'新築住宅',title:'余市の家',loc:'📍 北海道余市郡余市町　2023年竣工',specs:[{label:'延床面積',val:'142㎡'},{label:'構造',val:'木造2階建て'},{label:'工期',val:'約14ヶ月'}],desc:'果樹園が広がる余市の丘に建つ、積雪地域に最適化した高断熱住宅です。大きな軒が四季の変化を室内へ取り込み、冬の寒さを和らげる土間玄関、地元産木材をふんだんに使った内装が特徴です。暮らすほどに木が育ち、時を重ねるほどに深みを増していく住まいを目指しました。'},
-  w2:{tag:'平屋・新築',title:'函館の平屋',loc:'📍 北海道函館市　2023年竣工',specs:[{label:'延床面積',val:'108㎡'},{label:'構造',val:'木造平屋'},{label:'工期',val:'約12ヶ月'}],desc:'函館の歴史ある街並みに溶け込むよう設計した平屋です。バリアフリー設計を全室に取り入れ、将来にわたって安心して暮らせる間取りとしました。大きな掃き出し窓から臨む中庭は四季折々の表情を見せます。'},
-  w3:{tag:'新築住宅',title:'ニセコの山の家',loc:'📍 北海道虻田郡ニセコ町　2022年竣工',specs:[{label:'延床面積',val:'186㎡'},{label:'構造',val:'木造2階建て'},{label:'工期',val:'約16ヶ月'}],desc:'ニセコ連山を望む高台に建つ、厳しい冬にも耐える山の住まいです。道産カラマツをふんだんに使い、山の空気に馴染む重厚感のある外観を実現しました。アウトドアと日常生活が自然につながるデザインが好評です。'},
-  w4:{tag:'リノベーション',title:'札幌・円山の家',loc:'📍 北海道札幌市中央区　2022年竣工',specs:[{label:'リノベ面積',val:'165㎡'},{label:'構造',val:'木造2階建て'},{label:'工期',val:'約8ヶ月'}],desc:'築30年の戸建てを現代の暮らしに合わせてリノベーションした事例です。耐震補強・断熱改修を合わせて実施し、外観はスタイリッシュに刷新しながら、長く住んできた記憶を残すデザインとしました。'},
-  w5:{tag:'新築住宅',title:'旭川・緑が丘の家',loc:'📍 北海道旭川市　2021年竣工',specs:[{label:'延床面積',val:'128㎡'},{label:'構造',val:'木造2階建て'},{label:'工期',val:'約13ヶ月'}],desc:'旭川の住宅街に建つ、日本の伝統美と現代の機能性を融合させた住まいです。勾配屋根と白い外壁が街並みに穏やかに溶け込み、四季それぞれに違う表情を見せます。'},
-  w6:{tag:'リノベーション',title:'帯広・緑町の家',loc:'📍 北海道帯広市　2021年竣工',specs:[{label:'リノベ面積',val:'132㎡'},{label:'構造',val:'木造平屋'},{label:'工期',val:'約7ヶ月'}],desc:'広大な十勝平野を望む平屋のリノベーションです。既存の骨格を活かしながら開口部を大きく取り直し、北海道の雄大な景色を日常の風景として取り込みました。'},
-  w7:{tag:'新築住宅',title:'富良野の広い家',loc:'📍 北海道富良野市　2020年竣工',specs:[{label:'延床面積',val:'224㎡'},{label:'構造',val:'木造平屋＋一部2階'},{label:'工期',val:'約18ヶ月'}],desc:'ラベンダー畑が広がる富良野に建つ、広大な敷地を活かした大らかな住まいです。家族のそれぞれの居場所を大切にしながらも、緩やかにつながる空間構成としました。北海道の澄んだ空気と四季の彩りを存分に感じられる家です。'},
+  w1:{tag:'新築',title:'マチョフ邸',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'machof-top.jpg',images:['machof-1.jpg','machof-2.jpg','machof-3.jpg','machof-4.jpg']},
+  w2:{tag:'新築',title:'小樽の家',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計'}],desc:'',top:'otaru-top.jpg',images:['otaru-1.jpg','otaru-2.jpg','otaru-3.jpg','otaru-4.jpg']},
+  w3:{tag:'新築',title:'千歳の別荘',subtitle:'新築マンション',specs:[{label:'種別',val:'新築'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'内装設計・施工'}],desc:'',top:'',images:[]},
+  w4:{tag:'リノベーション',title:'余白の家',subtitle:'MSリノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w5:{tag:'リノベーション',title:'想い紡ぐ家',subtitle:'戸建リノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w6:{tag:'リノベーション',title:'陽だまりの家',subtitle:'MSリノベーション',specs:[{label:'種別',val:'リノベーション'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w7:{tag:'新築',title:'ミニマルな家',subtitle:'注文住宅',specs:[{label:'種別',val:'新築'},{label:'構造',val:'木造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w8:{tag:'店舗',title:"HAV cafe'",subtitle:'テナント改修',specs:[{label:'種別',val:'店舗設計'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w9:{tag:'サウナ',title:'プライベートサウナ',subtitle:'コンテナハウス',specs:[{label:'種別',val:'サウナ設計'},{label:'構造',val:'コンテナ'},{label:'業務範囲',val:'設計'}],desc:'',top:'',images:[]},
+  w10:{tag:'サウナ',title:'海辺のサウナ',subtitle:'コンテナハウス',specs:[{label:'種別',val:'サウナ設計'},{label:'構造',val:'コンテナ'},{label:'業務範囲',val:'設計'}],desc:'',top:'',images:[]},
+  w11:{tag:'オフィス',title:'鉄工所のオフィス',subtitle:'テナント改修',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'鉄骨'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w12:{tag:'オフィス',title:'白いオフィスと倉庫',subtitle:'コンテナハウス',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'木造・コンテナ'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'',images:[]},
+  w13:{tag:'店舗',title:'ジェラテリア La Giostra',subtitle:'テナント改修',specs:[{label:'種別',val:'造作建具交換'},{label:'構造',val:''},{label:'業務範囲',val:'建具設計・施工'}],desc:'',top:'',images:[]},
 };
 
-const cardOrder=['w1','w2','w3','w4','w5','w6','w7'];
+const cardOrder=['w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12','w13'];
 
 function openModal(id){
   const w=works[id]; if(!w)return;
@@ -441,21 +506,50 @@ function openModal(id){
   const allCards=document.querySelectorAll('.work-card');
   const card=allCards[idx];
   const svg=card?card.querySelector('svg'):null;
+  const svgHTML=svg?svg.outerHTML:'<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#e8e0d4"/></svg>';
+
+  // 4枠グリッド（実写があれば使用、足りない分はSVG）
+  const gallery=document.getElementById('modalGallery');
+  const items=[];
+  for(let i=0;i<4;i++){
+    if(w.images&&w.images[i]){
+      items.push(`<div class="modal-gallery-item"><img src="${w.images[i]}" alt=""></div>`);
+    } else {
+      items.push(`<div class="modal-gallery-item">${svgHTML}</div>`);
+    }
+  }
+  gallery.innerHTML=items.join('');
+
   document.getElementById('modalTag').textContent=w.tag;
   document.getElementById('modalTitle').textContent=w.title;
-  document.getElementById('modalLoc').textContent=w.loc;
+  document.getElementById('modalSubtitle').textContent=w.subtitle||'';
   document.getElementById('modalSpecs').innerHTML=w.specs.map(s=>`<div class="modal-spec-item"><label>${s.label}</label><span>${s.val}</span></div>`).join('');
   document.getElementById('modalDesc').textContent=w.desc;
-  const imgEl=document.getElementById('modalImg');
-  imgEl.innerHTML=svg?svg.outerHTML:'';
   document.getElementById('modalOverlay').classList.add('active');
   document.body.style.overflow='hidden';
 }
+
 function closeModal(){
   document.getElementById('modalOverlay').classList.remove('active');
   document.body.style.overflow='';
 }
 function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+
+// カードのトップ画像をworksデータのtopで差し替え
+function updateCardImages(){
+  const allCards=document.querySelectorAll('.work-card');
+  cardOrder.forEach((id,idx)=>{
+    const w=works[id];
+    if(w&&w.top){
+      const card=allCards[idx];
+      if(card){
+        const workImg=card.querySelector('.work-img');
+        if(workImg) workImg.innerHTML=`<img src="${w.top}" style="width:100%;height:100%;object-fit:cover;display:block;" alt="${w.title}">`;
+      }
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', updateCardImages);
 
 function filterWorks(cat,btn){
   document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));

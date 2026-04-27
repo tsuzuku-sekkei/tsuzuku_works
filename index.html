@@ -421,7 +421,7 @@
     </div>
 
     <div class="work-card reveal" data-cat="店舗" onclick="openModal('w14')">
-      <div class="work-img"><img src="mabaro-top.jpg" alt="麻婆飯店/士別成吉思汗"></div>
+      <div class="work-img" style="background:url('mabaro-top.jpg') center/cover no-repeat;width:100%;height:100%;"></div>
       <div class="work-tag">店舗</div>
       <div class="work-overlay"><div class="work-info"><h3>麻婆飯店／士別成吉思汗</h3><p>テナント改修</p></div><div class="work-arrow">→</div></div>
     </div>
@@ -506,7 +506,7 @@ const works={
   w14:{tag:'店舗',title:'麻婆飯店／士別成吉思汗',subtitle:'テナント改修',specs:[{label:'種別',val:'テナント改修'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'mabaro-top.jpg',images:['mabaro-1.jpg','mabaro-2.jpg','mabaro-3.jpg','mabaro-4.jpg']},
 };
 
-const cardOrder=['w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12','w13'];
+const cardOrder=['w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12','w13','w14'];
 
 function openModal(id){
   const w=works[id]; if(!w)return;

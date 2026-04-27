@@ -271,10 +271,12 @@
   /* 画像グリッド */
   .modal-gallery {
     width:100%; background:#e8e0d4;
-    display:grid; grid-template-columns:1fr 1fr; gap:8px;
-    padding:8px;
+    display:flex; flex-direction:row; overflow-x:auto;
+    gap:6px; padding:8px;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
   }
-  .modal-gallery-item { width:100%; aspect-ratio:4/3; overflow:hidden; }
+  .modal-gallery-item { flex:0 0 calc(50% - 3px); scroll-snap-align:start; aspect-ratio:4/3; overflow:hidden; }
   .modal-gallery-item svg { width:100%; height:100%; display:block; }
   .modal-gallery-item img { width:100%; height:100%; object-fit:cover; display:block; }
 
@@ -503,7 +505,7 @@ const works={
   w11:{tag:'オフィス',title:'鉄工所のオフィス',subtitle:'テナント改修',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'鉄骨'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'tekko-top.jpg',images:['tekko-1.jpg','','','']},
   w12:{tag:'オフィス',title:'白いオフィスと倉庫',subtitle:'コンテナハウス',specs:[{label:'種別',val:'オフィス設計'},{label:'構造',val:'木造・コンテナ'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'shiro-top.jpg',images:['shiro-1.jpg','shiro-2.jpg','shiro-3.jpg','shiro-4.jpg']},
   w13:{tag:'店舗',title:'ジェラテリア La Giostra',subtitle:'テナント改修',specs:[{label:'種別',val:'造作建具交換'},{label:'構造',val:''},{label:'業務範囲',val:'建具設計・施工'}],desc:'',top:'giostra-top.jpg',images:['giostra-1.jpg','giostra-2.jpg','','']},
-  w14:{tag:'店舗',title:'麻婆飯店／士別成吉思汗',subtitle:'テナント改修',specs:[{label:'種別',val:'テナント改修'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'mabaro-top.jpg',images:['mabaro-1.jpg','mabaro-2.jpg','mabaro-3.jpg','mabaro-4.jpg']},
+  w14:{tag:'店舗',title:'麻婆飯店／士別成吉思汗',subtitle:'テナント改修',specs:[{label:'種別',val:'テナント改修'},{label:'構造',val:'RC造'},{label:'業務範囲',val:'設計・施工'}],desc:'',top:'mabaro-top.jpg',images:['mabaro-1.jpg','mabaro-2.jpg','mabaro-3.jpg','mabaro-4.jpg','mabaro-5.jpg']},
 };
 
 const cardOrder=['w1','w2','w3','w4','w5','w6','w7','w8','w9','w10','w11','w12','w13','w14'];
@@ -516,14 +518,13 @@ function openModal(id){
   const svg=card?card.querySelector('svg'):null;
   const svgHTML=svg?svg.outerHTML:'<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg"><rect width="400" height="300" fill="#e8e0d4"/></svg>';
 
-  // 4枠グリッド（実写があれば使用、足りない分はSVG）
+  // 画像枚数に応じたスクロールギャラリー（最低4枠、画像があれば全表示）
   const gallery=document.getElementById('modalGallery');
   const isPortrait=(id==='w13');
   const itemStyle=isPortrait?' style="aspect-ratio:2/3"':'';
-  if(isPortrait) gallery.style.gridTemplateRows='auto';
-  else gallery.style.gridTemplateRows='';
   const items=[];
-  for(let i=0;i<4;i++){
+  const imgCount=Math.max(4, (w.images||[]).filter(x=>x&&x!=='').length);
+  for(let i=0;i<imgCount;i++){
     if(w.images&&w.images[i]&&w.images[i]!==''){
       items.push(`<div class="modal-gallery-item"${itemStyle}><img src="${w.images[i]}" alt=""></div>`);
     } else {
